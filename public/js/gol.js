@@ -107,7 +107,35 @@ Universe.prototype.findNeighboursByCell = function(cell) {
 }
 
 function Display(){
+    var w = 500;
+    var h = 500;
+    
+    // draw display border
+    $('<div id="canvas"/>').appendTo('body');
+    $("#canvas").css("width", w);
+    $("#canvas").css("height", h);
+    $("#canvas").css("border", "1px solid grey");
+    
+    this.raphael = new Raphael("canvas", w, h);
 }
+
+Display.prototype.drawCell = function(cell){
+    var side = 40;
+    var x = cell.posX * side;
+    var y = cell.posY * side;
+    var fill = cell.isAlive() ? '#FFF' : '#000'
+    this.raphael.rect(x, y, side, side).attr({fill: fill, stroke: "grey"});
+}
+
+Display.prototype.drawUniverse = function(universe){
+    
+    _.each(universe.population,function (cell){
+        this.drawCell(cell)
+    },this);
+    
+}
+
+
 
 
 
