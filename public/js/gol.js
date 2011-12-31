@@ -18,14 +18,14 @@ Cell.prototype.evolve = function(neighbors) {
     }).length;
 
     if (this.isAlive() && aliveNeighbors >= 2 && aliveNeighbors <= 3) {
-        return new Cell(Cell.ALIVE);
+        return new Cell(Cell.ALIVE,this.posX,this.posY);
     }
 
     if (this.isAlive() === false && aliveNeighbors == 3) {
-        return new Cell(Cell.ALIVE);
+        return new Cell(Cell.ALIVE,this.posX,this.posY);
     }
 
-    return new Cell(Cell.DEAD);
+    return new Cell(Cell.DEAD,this.posX,this.posY);
 };
 
 function Universe(population) {
@@ -40,8 +40,9 @@ Universe.prototype.evolve = function() {
     var newGeneration = [];
 
     _.each(this.population, function(cell) {
-        newGeneration.push(cell.evolve());
-    });
+        var neighbours = this.findNeighboursByCell(cell)
+        newGeneration.push(cell.evolve(neighbours));
+    },this);
 
     return new Universe(newGeneration);
 };
@@ -104,6 +105,13 @@ Universe.prototype.findNeighboursByCell = function(cell) {
     
     return neighbours;
 }
+
+function Display(){
+}
+
+
+
+
 
 
 

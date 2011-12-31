@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Polygon Demo</title>
+    <title>Game of Life</title>
     <!-- include source files here... -->
-    <script type="text/javascript" src="../public/js/polygon.js"></script>
-    <script type="text/javascript" src="../public/js/geopoint.js"></script>
-    <script type="text/javascript" src="../public/js/underscore.js"></script>
-    <script type="text/javascript" src="../public/js/raphael.js"></script>
-    <script type="text/javascript" src="../public/js/polygonutil.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/raphael.js"></script>
     <script type="text/javascript" src="js/gol.js"></script>
 
     <style type="text/css">
@@ -21,6 +19,6 @@
 </head>
 <body>
     <div id="canvas_container"></div>
-    <div id="toolbar"><button onmouseup="addRandomPolygon();">add</button> </div>
+    <div id="toolbar"><button >evolve</button> </div>
 </body>
 </html>

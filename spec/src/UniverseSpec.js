@@ -113,6 +113,22 @@ describe("Universe", function () {
         expect(neighbours.length).toEqual(3);
     });
     
-    
+    it("three live near vertical cells should evolve to three live near horizontal cells ", function () {
+        
+        var population = [
+                            new Cell(Cell.DEAD,0,0),new Cell(Cell.ALIVE,1,0),new Cell(Cell.DEAD,2,0),
+                            new Cell(Cell.DEAD,0,1),new Cell(Cell.ALIVE,1,1),new Cell(Cell.DEAD,2,1),
+                            new Cell(Cell.DEAD,0,2),new Cell(Cell.ALIVE,1,2),new Cell(Cell.DEADE,2,2)
+                         ];
+                
+        var newGeneration = new Universe(population).evolve().population;
+        
+        var aliveCells = _.filter(newGeneration, function(cell) {
+            return cell.isAlive() && cell.posY == 1 ;
+        }).length;
+                
+                
+         expect(aliveCells).toEqual(3);
+    });
     
 });
