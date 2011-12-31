@@ -16,6 +16,12 @@ describe("A Cell", function () {
     it("should be die", function () {
         expect(new Cell(Cell.DEAD).isAlive()).toEqual(Cell.DEAD);;
     });
+    
+    it("should has a position x and y", function () {
+        var cell = new Cell(Cell.ALIVE,0,0);
+        expect(cell.posX).toEqual(0);
+        expect(cell.posY).toEqual(0);
+    });
 
     it("should be evolve", function () {
         expect(new Cell(Cell.DEAD).evolve([]).isAlive()).toEqual(Cell.DEAD);
