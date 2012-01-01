@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conway's Game of Life</title>
+    <!-- include source files here... -->
+    <script type="text/javascript" src="js/jquery-1.7.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/raphael.js"></script>
+    <script type="text/javascript" src="js/gol.js"></script>
+</head>
+<body >
+    <h1>Conway's Game Of Life</h1>
+    <p>More info about Game Of Life are available <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life">en.wikipedia.org/wiki/Conway's_Game_of_Life</a></p>
+    <p>
+      Built with pure Javascript &amp; <a href="http://raphaeljs.com">raphaeljs.com</a> and Test Driven Developed with <a href="http://pivotal.github.com/jasmine">Jasmine</a>.
+      Developed using <a href="http://c9.io/">Cloud9IDE</a>
+    </p>
+    <div id="reset" style="display:inline" ><button onmouseup="game.seed();">reset</button> </div>
+    <div id="play_pause" style="display:inline" ><button onmouseup="game.playOrPause();">play</button> </div>
+    <script type="text/javascript">
+      var game = new GameOfLife(500, 500, 20);
+      game.seed();
+    </script>
+</body>
+</html>

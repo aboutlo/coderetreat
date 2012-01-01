@@ -1,0 +1,14 @@
+= Game of Life (Javascript Implementation)
+
+An implementation of Conway's Game Of Life with Javascript & Rahapel, developed with a TDD approach using Jasmine.
+
+Graphics provided by http://jawsjs.com
+
+Javascript Standalone Test Driven Development Framework provided by http://pivotal.github.com/jasmine
+
+== INSTALL & RUN
+git clone git@github.com:aboutlo/coderetreat.git
+git checkout gol
+
+Open index.html to see the example.
+Open SpecRunner.html to launch the tests.

@@ -97,43 +97,92 @@ Universe.prototype.findNeighboursByCell = function(cell) {
             neighbours.push( neighbour);
         }
         
-       
-        
-        
     });
     
     
     return neighbours;
 }
 
-function Display(){
-    var w = 500;
-    var h = 500;
+function GameOfLife(width, height,cellSize){
+    this.universe = new Universe();
+    this.running = false;
+    this.cellSize = cellSize;
+    this.width = width;
+    this.height = height;
     
     // draw display border
     $('<div id="canvas"/>').appendTo('body');
-    $("#canvas").css("width", w);
-    $("#canvas").css("height", h);
+    
+    // border drawed only to be tested 
+    $("#canvas").css("width", width);
+    $("#canvas").css("height", height);
     $("#canvas").css("border", "1px solid grey");
     
-    this.raphael = new Raphael("canvas", w, h);
+    this.raphael = new Raphael("canvas", width, height);
+}
+GameOfLife.prototype.isRunning = function(){
+    return this.running;
 }
 
-Display.prototype.drawCell = function(cell){
-    var side = 40;
-    var x = cell.posX * side;
-    var y = cell.posY * side;
-    var fill = cell.isAlive() ? '#FFF' : '#000'
-    this.raphael.rect(x, y, side, side).attr({fill: fill, stroke: "grey"});
+GameOfLife.prototype.play = function(){
+    this.running = true;
+    this.draw();
+    return this;
 }
 
-Display.prototype.drawUniverse = function(universe){
+GameOfLife.prototype.stop = function(){
+    this.running = false;
+    clearTimeout(this.timer);
+    return this;
+}
+
+GameOfLife.prototype.playOrPause = function(){
+   if ( this.running ) {
+       this.stop() 
+    }else {
+        this.play();
+    }
+    return this;
+}
+
+GameOfLife.prototype.seed = function(){
+    seed = [];
+      for (var i = 0; i < this.width / this.cellSize; i++) {
+        for (var j = 0; j < this.height / this.cellSize; j++) {
+          status = Math.random();
+          seed.push(new Cell(status < 0.10, i, j));
+        }
+      }
+      this.universe = new Universe(seed);
+      this.draw();
+}
+
+GameOfLife.prototype.drawCell = function(cell){
+    var x = cell.posX * this.cellSize;
+    var y = cell.posY * this.cellSize;
+    var fill = cell.isAlive() ? '#000' : '#FFF'
+    this.raphael.rect(x, y, this.cellSize, this.cellSize).attr({fill: fill, stroke: "grey"});
+}
+
+GameOfLife.prototype.draw = function(){
+    this.raphael.clear();
     
-    _.each(universe.population,function (cell){
+    this.universe = this.universe.evolve();
+    
+    _.each(this.universe.population,function (cell){
         this.drawCell(cell)
     },this);
     
+    if (this.running){
+        // workaround to get a reference to draw method inner a class
+        var self= this;
+        this.timer = setTimeout(function() {
+            self.draw();
+        }, 250);
+    }
+    
 }
+
 
 
 
